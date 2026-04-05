@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신홍철 | AI · DX Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Pretendard:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #fdf8f3;
+    --blush: #f5e6e0;
+    --sage: #dde8e0;
+    --lavender: #e8e3f0;
+    --sky: #dcedf5;
+    --dusty-rose: #c9a5a0;
+    --muted-green: #7da690;
+    --slate-blue: #7a84b0;
+    --warm-gray: #6b6460;
+    --dark: #2c2825;
+    --accent: #b87461;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 20px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(253,248,243,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(200,185,175,0.2);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--warm-gray);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 40%, rgba(220,237,245,0.6) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 10% 80%, rgba(221,232,224,0.5) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 60% 10%, rgba(232,227,240,0.4) 0%, transparent 60%);
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 760px; }
+  .hero-tag {
+    display: inline-block;
+    background: var(--blush);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.1;
+    color: var(--dark);
+    margin-bottom: 8px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--warm-gray);
+    margin: 24px 0 40px;
+    max-width: 520px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-chips {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .chip {
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+  }
+  .chip-rose { background: var(--blush); color: var(--dusty-rose); }
+  .chip-green { background: var(--sage); color: var(--muted-green); }
+  .chip-blue { background: var(--sky); color: var(--slate-blue); }
+  .chip-purple { background: var(--lavender); color: #8878b0; }
+
+  .hero-scroll {
+    position: absolute; bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    color: var(--warm-gray); font-size: 0.72rem; letter-spacing: 0.1em;
+    text-transform: uppercase; animation: bounce 2s infinite;
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--dusty-rose), transparent);
+  }
+
+  /* SECTIONS */
+  section { padding: 100px 48px; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--dark); margin-bottom: 56px;
+    line-height: 1.2;
+  }
+
+  /* ABOUT */
+  .about { background: white; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 64px; align-items: start; max-width: 1100px;
+  }
+  .about-text p {
+    color: var(--warm-gray); font-size: 0.97rem;
+    margin-bottom: 20px; line-height: 1.85;
+  }
+  .about-text p strong { color: var(--dark); font-weight: 500; }
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .stat-card {
+    background: var(--cream);
+    border-radius: 20px; padding: 28px 24px;
+    border: 1px solid rgba(200,185,175,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(180,130,110,0.1); }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem; color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--warm-gray); margin-top: 6px; }
+
+  /* EXPERIENCE */
+  .experience { background: var(--cream); }
+  .exp-timeline { max-width: 900px; }
+  .exp-item {
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 40px; margin-bottom: 56px;
+    padding-bottom: 56px;
+    border-bottom: 1px solid rgba(200,185,175,0.25);
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .exp-item.visible { opacity: 1; transform: translateY(0); }
+  .exp-item:last-child { border-bottom: none; }
+  .exp-period {
+    font-size: 0.8rem; color: var(--dusty-rose);
+    font-weight: 500; padding-top: 4px;
+    letter-spacing: 0.03em;
+  }
+  .exp-company {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem; color: var(--dark); margin-bottom: 6px;
+  }
+  .exp-role {
+    font-size: 0.8rem; color: var(--slate-blue);
+    font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .exp-desc { font-size: 0.9rem; color: var(--warm-gray); line-height: 1.8; }
+  .exp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .exp-tag {
+    font-size: 0.75rem; padding: 4px 12px;
+    border-radius: 100px;
+    background: var(--blush); color: var(--dusty-rose);
+  }
+
+  /* PROJECTS */
+  .projects { background: white; }
+  .proj-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px; max-width: 1100px;
+  }
+  .proj-card {
+    border-radius: 24px; padding: 36px 32px;
+    border: 1px solid rgba(200,185,175,0.15);
+    transition: transform 0.25s, box-shadow 0.25s;
+    position: relative; overflow: hidden;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s, box-shadow 0.25s;
+  }
+  .proj-card.visible { opacity: 1; transform: translateY(0); }
+  .proj-card:hover { box-shadow: 0 16px 40px rgba(100,80,70,0.1); }
+  .proj-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    border-radius: 24px 24px 0 0;
+  }
+  .proj-card.rose { background: #fff9f8; }
+  .proj-card.rose::before { background: var(--dusty-rose); }
+  .proj-card.green { background: #f7fbf9; }
+  .proj-card.green::before { background: var(--muted-green); }
+  .proj-card.blue { background: #f5fafd; }
+  .proj-card.blue::before { background: var(--slate-blue); }
+  .proj-card.lavender { background: #f9f8fc; }
+  .proj-card.lavender::before { background: #8878b0; }
+  .proj-icon { font-size: 1.8rem; margin-bottom: 20px; }
+  .proj-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem; color: var(--dark);
+    margin-bottom: 12px; line-height: 1.3;
+  }
+  .proj-desc { font-size: 0.85rem; color: var(--warm-gray); line-height: 1.75; }
+  .proj-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px; }
+  .proj-stack span {
+    font-size: 0.72rem; padding: 3px 10px;
+    border-radius: 100px; background: rgba(180,130,110,0.1);
+    color: var(--accent); font-weight: 500;
+  }
+
+  /* SKILLS */
+  .skills { background: var(--cream); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px; max-width: 1100px;
+  }
+  .skill-group {
+    background: white; border-radius: 20px; padding: 28px;
+    border: 1px solid rgba(200,185,175,0.15);
+  }
+  .skill-group-title {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px;
+  }
+  .skill-items { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-item {
+    font-size: 0.8rem; padding: 6px 14px;
+    border-radius: 100px; font-weight: 400;
+  }
+  .skill-item.rose { background: var(--blush); color: var(--dusty-rose); }
+  .skill-item.green { background: var(--sage); color: var(--muted-green); }
+  .skill-item.blue { background: var(--sky); color: var(--slate-blue); }
+  .skill-item.purple { background: var(--lavender); color: #8878b0; }
+
+  /* EDUCATION & CERTS */
+  .edu { background: white; }
+  .edu-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 40px; max-width: 1100px;
+  }
+  .edu-card {
+    background: var(--cream); border-radius: 20px; padding: 32px;
+    border: 1px solid rgba(200,185,175,0.2);
+  }
+  .edu-card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem; margin-bottom: 6px;
+  }
+  .edu-card-sub { font-size: 0.82rem; color: var(--warm-gray); margin-bottom: 16px; }
+  .cert-list { list-style: none; }
+  .cert-list li {
+    font-size: 0.83rem; color: var(--warm-gray);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(200,185,175,0.2);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cert-list li:last-child { border-bottom: none; }
+  .cert-list .cert-date {
+    font-size: 0.75rem; color: var(--dusty-rose); font-weight: 500; white-space: nowrap; margin-left: 12px;
+  }
+
+  /* PUBLICATIONS */
+  .publications { background: var(--cream); }
+  .pub-list { max-width: 900px; }
+  .pub-item {
+    background: white; border-radius: 16px; padding: 24px 28px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(200,185,175,0.15);
+    display: flex; gap: 20px; align-items: flex-start;
+    opacity: 0; transform: translateY(12px);
+    transition: opacity 0.4s, transform 0.4s;
+  }
+  .pub-item.visible { opacity: 1; transform: translateY(0); }
+  .pub-icon {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: var(--blush); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .pub-title { font-size: 0.9rem; color: var(--dark); font-weight: 500; line-height: 1.5; }
+  .pub-venue { font-size: 0.78rem; color: var(--dusty-rose); margin-top: 4px; }
+
+  /* CONTACT */
+  .contact {
+    background: var(--dark);
+    text-align: center; padding: 100px 48px;
+  }
+  .contact .section-label { color: var(--dusty-rose); }
+  .contact .section-title { color: white; margin-bottom: 16px; }
+  .contact-sub { color: rgba(255,255,255,0.5); font-size: 0.9rem; margin-bottom: 48px; }
+  .contact-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px; border-radius: 100px;
+    font-size: 0.85rem; font-weight: 500;
+    text-decoration: none; transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .contact-link.primary {
+    background: var(--accent); color: white;
+  }
+  .contact-link.primary:hover { background: #c8846f; transform: translateY(-2px); }
+  .contact-link.secondary {
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .contact-link.secondary:hover { background: rgba(255,255,255,0.15); }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark); text-align: center;
+    padding: 24px; border-top: 1px solid rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.3); font-size: 0.75rem;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 72px 24px; }
+    .hero { padding: 100px 24px 72px; }
+    .about-grid, .edu-grid { grid-template-columns: 1fr; gap: 40px; }
+    .exp-item { grid-template-columns: 1fr; gap: 8px; }
+    .contact-links { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SHC</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">경력</a></li>
+    <li><a href="#projects">프로젝트</a></li>
+    <li><a href="#skills">스킬</a></li>
+    <li><a href="#contact">연락</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-tag">AI · DX · Data Science</span>
+    <h1 class="hero-title">신홍철<br><em>Hongcheol Shin</em></h1>
+    <p class="hero-subtitle">
+      산업 현장의 DX 경험과 AI/ML 전문성을 결합한 엔지니어.<br>
+      데이터로 문제를 정의하고, 기술로 가치를 만듭니다.
+    </p>
+    <div class="hero-chips">
+      <span class="chip chip-rose">AI/ML Engineer</span>
+      <span class="chip chip-green">DX Project Manager</span>
+      <span class="chip chip-blue">Data Scientist</span>
+      <span class="chip chip-purple">석사 재학 (UST)</span>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-label">About Me</div>
+  <h2 class="section-title">현장과 기술을<br>잇는 사람</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>발전소 엔지니어로 시작해 <strong>DX 프로젝트 매니저</strong>로 디지털 전환을 이끌었고, 현재는 <strong>AI/ML 개발자</strong>로 커리어를 전환 중입니다.</p>
+      <p>현장 경험에서 비롯된 문제 인식력, 디자인 씽킹 기반의 사용자 중심 사고, 그리고 체계적인 AI/ML 기술 학습이 저의 강점입니다.</p>
+      <p>과학기술연합대학원(UST) 인공지능 석사 과정에서 이론적 깊이를 더하며, 학술 논문 발표와 실전 프로젝트를 병행하고 있습니다.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">4년+</div>
+        <div class="stat-label">산업 현장 경력<br>(발전소 운영·DX)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6건+</div>
+        <div class="stat-label">AI/DX<br>프로젝트 수행</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3편</div>
+        <div class="stat-label">학술대회<br>논문 발표</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4.11</div>
+        <div class="stat-label">대학원 학점<br>(4.5 만점)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title">주요 경력</h2>
+  <div class="exp-timeline">
+
+    <div class="exp-item">
+      <div class="exp-period">2019.07 — 2024.04<br>총 4년 10개월</div>
+      <div>
+        <div class="exp-company">GS E&R / GS반월열병합발전</div>
+        <div class="exp-role">기계정비 · 변화혁신 DX 담당 · 발전운전</div>
+        <div class="exp-desc">
+          고압 기계 설비 정비 및 유지보수 업무로 시작하여, 기업문화팀 DX 담당자로 전환 후 조직의 디지털 전환 프로젝트를 기획·주도했습니다. 스탠포드 오픈이노베이션 퍼실리테이터 과정을 수료하고 그룹사 전체 해커톤을 총괄 운영했습니다.
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">DX Project PM</span>
+          <span class="exp-tag">디자인 씽킹</span>
+          <span class="exp-tag">해커톤 운영</span>
+          <span class="exp-tag">UX/UI 개선</span>
+          <span class="exp-tag">발전설비 운영</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-period">2024.03 — 현재</div>
+      <div>
+        <div class="exp-company">과학기술연합대학원대학교 (UST)</div>
+        <div class="exp-role">인공지능 석사 재학중</div>
+        <div class="exp-desc">
+          AI/ML 이론과 실전 프로젝트를 병행하며 전문성을 심화하고 있습니다. 현대로템 K-방산 AI 개발자 과정에 참여해 자율주행, LLM 서비스, 데이터 분석 프로젝트를 수행했으며, 3편의 학술대회 논문을 발표했습니다.
+        </div>
+        <div class="exp-tags">
+          <span class="exp-tag">머신러닝</span>
+          <span class="exp-tag">LLM / RAG</span>
+          <span class="exp-tag">자율주행</span>
+          <span class="exp-tag">데이터 분석</span>
+          <span class="exp-tag">논문 발표</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title">주요 프로젝트</h2>
+  <div class="proj-grid">
+
+    <div class="proj-card rose">
+      <div class="proj-icon">🚗</div>
+      <div class="proj-title">무인 전차 자율주행 시스템<br>— Mapping 모듈 개발</div>
+      <div class="proj-desc">가상 시뮬레이터 환경에서 LiDAR 데이터와 DBSCAN 군집 분석을 활용해 장애물 인식 Mapping 모듈을 개발했습니다. 초기 장애물 인식 정확도 80% 달성 및 학술 논문 발표로 이어졌습니다.</div>
+      <div class="proj-stack">
+        <span>Python</span><span>DBSCAN</span><span>LiDAR</span><span>Scikit-learn</span>
+      </div>
+    </div>
+
+    <div class="proj-card green">
+      <div class="proj-icon">💬</div>
+      <div class="proj-title">LLM 기반 AI Companion<br>— 일기 대화 서비스</div>
+      <div class="proj-desc">오픈소스 LLM(EXAONE)을 활용해 일기 기반 AI 대화 서비스를 기획·개발했습니다. 프롬프트 엔지니어링, 백엔드 설계, UI 대시보드 구현까지 풀스택으로 담당했습니다.</div>
+      <div class="proj-stack">
+        <span>Python</span><span>Flask</span><span>LLM</span><span>Prompt Engineering</span>
+      </div>
+    </div>
+
+    <div class="proj-card blue">
+      <div class="proj-icon">🏭</div>
+      <div class="proj-title">밀폐공간 실시간<br>안전관리 시스템 구축</div>
+      <div class="proj-desc">수기 기록 방식의 산업 안전 관리 프로세스를 디지털화했습니다. 3개 계열사 협업 PM으로 디지털 현황판 및 무선 데이터 전송 웹/앱 서비스를 성공적으로 도입했습니다.</div>
+      <div class="proj-stack">
+        <span>PM</span><span>디자인 씽킹</span><span>UX 설계</span><span>웹/앱 서비스</span>
+      </div>
+    </div>
+
+    <div class="proj-card lavender">
+      <div class="proj-icon">📊</div>
+      <div class="proj-title">공간 통계 기반<br>범죄 위험 요인 분석</div>
+      <div class="proj-desc">공공 데이터를 활용해 공간 통계·회귀 분석으로 범죄 발생 영향 요인을 분석했습니다. 데이터 수집부터 시각화·보고서 작성까지 전 과정을 주도했습니다.</div>
+      <div class="proj-stack">
+        <span>Python</span><span>통계 분석</span><span>회귀 분석</span><span>데이터 시각화</span>
+      </div>
+    </div>
+
+    <div class="proj-card rose">
+      <div class="proj-icon">🎓</div>
+      <div class="proj-title">발전소 운전원 교육용<br>시뮬레이터 UX/UI 개선</div>
+      <div class="proj-desc">운전원 보직 변경 시 교육 효율성 향상을 위한 시뮬레이터 UX/UI 개선 프로젝트 PM. 프로토타입 즉시 현업 적용 및 약 5억 원의 불필요한 개발 비용 절감 효과를 달성했습니다.</div>
+      <div class="proj-stack">
+        <span>UX 리서치</span><span>프로토타이핑</span><span>PM</span>
+      </div>
+    </div>
+
+    <div class="proj-card green">
+      <div class="proj-icon">🤖</div>
+      <div class="proj-title">RAG 기반 AI Agent<br>챗봇 추천 서비스</div>
+      <div class="proj-desc">금융 및 보험 산업 중심으로 RAG 모델을 적용한 AI Agent 기반 챗봇 추천 서비스의 아키텍처를 설계하고 학술대회에 논문을 발표했습니다.</div>
+      <div class="proj-stack">
+        <span>RAG</span><span>LLM</span><span>AI Agent</span><span>아키텍처 설계</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills" id="skills">
+  <div class="section-label">Skills</div>
+  <h2 class="section-title">기술 스택</h2>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">AI / ML</div>
+      <div class="skill-items">
+        <span class="skill-item rose">Python</span>
+        <span class="skill-item rose">TensorFlow</span>
+        <span class="skill-item rose">Scikit-learn</span>
+        <span class="skill-item rose">LLM</span>
+        <span class="skill-item rose">RAG</span>
+        <span class="skill-item rose">DBSCAN</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Data Analysis</div>
+      <div class="skill-items">
+        <span class="skill-item green">Pandas</span>
+        <span class="skill-item green">NumPy</span>
+        <span class="skill-item green">EDA</span>
+        <span class="skill-item green">통계 분석</span>
+        <span class="skill-item green">데이터 시각화</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">Development</div>
+      <div class="skill-items">
+        <span class="skill-item blue">SQL / SQLD</span>
+        <span class="skill-item blue">Flask</span>
+        <span class="skill-item blue">HTML5 / CSS3</span>
+        <span class="skill-item blue">RDBMS</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">DX / PM</div>
+      <div class="skill-items">
+        <span class="skill-item purple">디자인 씽킹</span>
+        <span class="skill-item purple">UX 리서치</span>
+        <span class="skill-item purple">퍼실리테이션</span>
+        <span class="skill-item purple">프로젝트 관리</span>
+        <span class="skill-item purple">스토리보드</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION & CERTIFICATIONS -->
+<section class="edu" id="edu">
+  <div class="section-label">Education & Certifications</div>
+  <h2 class="section-title">학력 및 자격</h2>
+  <div class="edu-grid">
+    <div>
+      <div class="edu-card" style="margin-bottom:20px">
+        <div class="edu-card-title">과학기술연합대학원대학교 (UST)</div>
+        <div class="edu-card-sub">인공지능 석사 재학중 · 2024.03 — 현재 · 학점 4.11/4.5</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-card-title">건국대학교 (서울)</div>
+        <div class="edu-card-sub">기계공학 학사 졸업 · 2011.03 — 2017.08 · 학점 3.71/4.5</div>
+      </div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-card-title" style="margin-bottom:16px">주요 자격증</div>
+      <ul class="cert-list">
+        <li><span>데이터분석전문가 (ADP) 필기</span><span class="cert-date">2025.03</span></li>
+        <li><span>빅데이터 분석기사</span><span class="cert-date">2024.07</span></li>
+        <li><span>SQL 개발자 (SQLD)</span><span class="cert-date">2024.09</span></li>
+        <li><span>데이터분석준전문가 (ADsP)</span><span class="cert-date">2023.03</span></li>
+        <li><span>컴퓨터활용능력 1급</span><span class="cert-date">2018.08</span></li>
+        <li><span>일반기계기사 / 건설기계설비기사</span><span class="cert-date">2016–2017</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section class="publications">
+  <div class="section-label">Publications</div>
+  <h2 class="section-title">학술대회 논문</h2>
+  <div class="pub-list">
+    <div class="pub-item">
+      <div class="pub-icon">📄</div>
+      <div>
+        <div class="pub-title">비정형 전장 환경에서의 밀도 기반 머신러닝 객체 탐지 <strong style="font-size:0.75rem;color:var(--accent)">(1저자)</strong></div>
+        <div class="pub-venue">한국정보기술학회 2025 하계종합학술대회</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-icon">📄</div>
+      <div>
+        <div class="pub-title">무인전차의 자율주행 및 자동조준을 위한 AI 기반 시스템 설계 및 구현</div>
+        <div class="pub-venue">대한전자공학회 2025 하계종합학술대회</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-icon">📄</div>
+      <div>
+        <div class="pub-title">RAG 모델을 적용한 AI Agent 기반 챗봇 추천 서비스 아키텍처 설계 — 금융 및 보험 산업 중심으로</div>
+        <div class="pub-venue">한국디지털콘텐츠학회 2025 하계종합학술대회</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title">함께 일해요</h2>
+  <p class="contact-sub">AI/ML, 데이터 사이언스, DX 프로젝트 관련 협업 문의 환영합니다.</p>
+  <div class="contact-links">
+    <a class="contact-link primary" href="mailto:po1312iu@gmail.com">✉ po1312iu@gmail.com</a>
+    <a class="contact-link secondary" href="tel:010-3332-0219">📞 010-3332-0219</a>
+  </div>
+</section>
+
+<footer>
+  © 2025 Hongcheol Shin · Built with GitHub Pages
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.exp-item, .proj-card, .pub-item').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Stagger proj cards
+  document.querySelectorAll('.proj-card').forEach((card, i) => {
+    card.style.transitionDelay = `${i * 0.08}s`;
+  });
+</script>
+</body>
+</html>
